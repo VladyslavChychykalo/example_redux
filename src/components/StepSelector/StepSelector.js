@@ -1,7 +1,5 @@
 import React from "react";
-import { connect } from "react-redux";
 import Select from "react-select";
-import * as timerActions from "../../redux/timerActions";
 
 const options = [
   {
@@ -18,16 +16,14 @@ const options = [
   }
 ];
 
+const findOption = value => options.find(opt => opt.value === value);
+
 const stepSelector = ({ value, onChange }) => (
-  <Select options={options} value={value} onChange={onChange}></Select>
+  <Select
+    options={options}
+    value={findOption(value)}
+    onChange={onChange}
+  ></Select>
 );
 
-const mapStateToProps = state => ({
-  value: state.timer.step
-});
-
-const mapDispatchToProps = dispatch => ({
-  onChange: step => dispatch(timerActions.changeStep(step))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(stepSelector);
+export default stepSelector;
